@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Où ranger ses fruits et légumes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#151E1A;
+    --paper:#ECEFE5;
+    --line:#C9CFBF;
+    --cold-deep:#0C4350;
+    --cold:#3FA9B8;
+    --cold-soft:#D3E6E9;
+    --warm:#B95F12;
+    --warm-soft:#F7E4C9;
+    --gas:#A32068;
+    --gas-soft:#F3D9E6;
+    --display:"Bricolage Grotesque",system-ui,sans-serif;
+    --body:"Karla",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.45;
+    background-image:radial-gradient(var(--line) 0.5px,transparent 0.5px);
+    background-size:22px 22px;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:28px 18px 56px}
+
+  /* ---------- en-tête ---------- */
+  .eyebrow{
+    font-family:var(--mono);font-size:11px;font-weight:700;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--gas);
+    display:flex;gap:10px;align-items:center;
+  }
+  .eyebrow span{flex:1;height:1px;background:var(--line)}
+  h1{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(2.3rem,9vw,4.4rem);
+    line-height:.92;letter-spacing:-.025em;
+    margin:.35em 0 .3em;text-wrap:balance;
+  }
+  h1 em{font-style:normal;color:var(--cold-deep)}
+  .lede{max-width:46ch;font-size:1.02rem;color:#3D4A44;margin:0 0 30px}
+
+  /* ---------- grille des deux zones ---------- */
+  .zones{display:grid;gap:16px;grid-template-columns:1fr}
+  @media(min-width:780px){.zones{grid-template-columns:1fr 1fr}}
+
+  .zone{border-radius:4px;padding:20px 18px 22px;position:relative;overflow:hidden}
+  .zone--cold{background:var(--cold-deep);color:#EAF6F7}
+  .zone--warm{background:var(--warm-soft);border:1px solid #E2C79E}
+
+  .zone-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px}
+  .zone-title{font-family:var(--display);font-weight:700;font-size:1.5rem;letter-spacing:-.01em}
+  .temp{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.08em;opacity:.75}
+  .zone-sub{font-size:.88rem;margin:0 0 16px;opacity:.8}
+
+  .shelf{margin-bottom:16px}
+  .shelf:last-child{margin-bottom:0}
+  .shelf-label{
+    font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:9px;
+  }
+  .shelf-label::after{content:"";flex:1;height:1px;background:currentColor;opacity:.28}
+  .zone--cold .shelf-label{color:var(--cold)}
+  .zone--warm .shelf-label{color:var(--warm)}
+
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin:0;padding:0;list-style:none}
+  .chip{
+    display:inline-flex;align-items:baseline;gap:7px;
+    padding:6px 11px;border-radius:999px;font-size:.94rem;font-weight:500;
+  }
+  .chip b{font-weight:500}
+  .chip i{font-style:normal;font-family:var(--mono);font-size:10.5px;font-weight:700;opacity:.7;letter-spacing:.02em}
+  .zone--cold .chip{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18)}
+  .zone--warm .chip{background:#FFFDF8;border:1px solid #E4CBA5}
+  .chip u{
+    text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:700;
+    color:var(--gas);line-height:1;
+  }
+  .zone--cold .chip u{color:#EF93C4}
+
+  .note{
+    font-size:.82rem;margin:14px 0 0;padding-left:11px;
+    border-left:2px solid currentColor;opacity:.72;
+  }
+
+  /* ---------- bandeau éthylène ---------- */
+  .gasband{
+    margin-top:16px;border:1px solid var(--gas);border-radius:4px;
+    background:#FFFDFB;padding:20px 18px 22px;
+  }
+  .gas-title{font-family:var(--display);font-weight:700;font-size:1.5rem;margin:.1em 0 .2em}
+  .gas-lede{font-size:.9rem;color:#4A3B43;margin:0 0 20px;max-width:52ch}
+
+  .flow{display:grid;gap:14px;grid-template-columns:1fr;align-items:center}
+  @media(min-width:700px){.flow{grid-template-columns:1fr 88px 1fr}}
+
+  .side-label{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px}
+  .emit .side-label{color:var(--gas)}
+  .recv .side-label{color:var(--cold-deep)}
+  .emit .chip{background:var(--gas-soft);border:1px solid #E4AECA;color:#5E1039}
+  .recv .chip{background:var(--cold-soft);border:1px solid #A9CCD1;color:#0C3B45}
+
+  /* signature : les ondes d'éthylène */
+  .waves{position:relative;height:64px;display:flex;align-items:center;justify-content:center}
+  .waves::before{
+    content:"";position:absolute;left:0;right:0;top:50%;
+    border-top:1.5px dashed var(--gas);opacity:.4;
+  }
+  .arc{
+    position:absolute;width:16px;height:16px;border-radius:50%;
+    border:1.5px solid var(--gas);opacity:0;
+    animation:ripple 3.2s ease-out infinite;
+  }
+  .arc:nth-child(2){animation-delay:1.06s}
+  .arc:nth-child(3){animation-delay:2.13s}
+  @keyframes ripple{
+    0%{transform:scale(.4);opacity:.9}
+    100%{transform:scale(4.2);opacity:0}
+  }
+  .waves em{
+    position:relative;background:#FFFDFB;padding:0 6px;
+    font-family:var(--mono);font-size:10px;font-weight:700;
+    letter-spacing:.1em;color:var(--gas);font-style:normal;
+  }
+  @media(prefers-reduced-motion:reduce){.arc{animation:none;opacity:.35;transform:scale(2.4)}}
+
+  .verdict{
+    margin:20px 0 0;padding:13px 15px;background:var(--gas);color:#FFF4FA;
+    border-radius:3px;font-size:.94rem;font-weight:500;
+  }
+
+  /* ---------- règles ---------- */
+  .rules{margin-top:32px;border-top:2px solid var(--ink);padding-top:18px}
+  .rules h2{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 14px}
+  .rules ol{margin:0;padding:0;list-style:none;display:grid;gap:12px;grid-template-columns:1fr}
+  @media(min-width:700px){.rules ol{grid-template-columns:1fr 1fr}}
+  .rules li{display:flex;gap:11px;font-size:.92rem;line-height:1.4}
+  .rules li::before{
+    content:counter(r,decimal-leading-zero);counter-increment:r;
+    font-family:var(--mono);font-size:11px;font-weight:700;color:var(--gas);
+    padding-top:3px;
+  }
+  .rules ol{counter-reset:r}
+  footer{margin-top:34px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:#6C7770}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Retour du primeur <span></span> Où ça va</p>
+  <h1>Le froid, le frais,<br><em>et ce qui gaze.</em></h1>
+  <p class="lede">Trois zones à retenir. La troisième est celle qu'on oublie : certains fruits font mûrir leurs voisins de force.</p>
+
+  <div class="zones">
+
+    <section class="zone zone--cold">
+      <div class="zone-head">
+        <h2 class="zone-title">Au frigo</h2>
+        <span class="temp">4 °C</span>
+      </div>
+      <p class="zone-sub">Non lavés. L'humidité résiduelle est ce qui fait pourrir.</p>
+
+      <div class="shelf">
+        <p class="shelf-label">Bac à légumes</p>
+        <ul class="chips">
+          <li class="chip"><b>Poivrons</b> <i>10–14 j</i></li>
+          <li class="chip"><b>Carottes</b> <i>2–3 sem.</i></li>
+          <li class="chip"><b>Courgettes</b> <i>7 j</i></li>
+        </ul>
+      </div>
+
+      <div class="shelf">
+        <p class="shelf-label">Étagère · les fragiles, à plat</p>
+        <ul class="chips">
+          <li class="chip"><b>Fruits rouges</b> <i>2–5 j</i></li>
+          <li class="chip"><b>Raisins</b> <i>5–7 j</i></li>
+          <li class="chip"><b>Pomme</b> <u>≈</u> <i>4–6 sem.</i></li>
+        </ul>
+      </div>
+
+      <div class="shelf">
+        <p class="shelf-label">Porte ou étage du haut · zone la moins froide</p>
+        <ul class="chips">
+          <li class="chip"><b>Concombre</b> <i>5 j</i></li>
+          <li class="chip"><b>Aubergines</b> <i>3–4 j max</i></li>
+          <li class="chip"><b>Citrons</b> <i>3–4 sem.</i></li>
+        </ul>
+      </div>
+
+      <p class="note">Concombre et aubergine craignent le froid vif : enveloppés, jamais au fond. Fruits rouges en une seule couche, boîte non fermée — empilés, ils s'écrasent et moisissent. La pomme reste loin du bac à légumes.</p>
+    </section>
+
+    <section class="zone zone--warm">
+      <div class="zone-head">
+        <h2 class="zone-title">Sur le plan</h2>
+        <span class="temp">20–22 °C</span>
+      </div>
+      <p class="zone-sub">À l'ombre, à plat, jamais empilés.</p>
+
+      <div class="shelf">
+        <p class="shelf-label">Le froid les abîme · n'y vont jamais</p>
+        <ul class="chips">
+          <li class="chip"><b>Tomates</b> <u>≈</u> <i>4–5 j</i></li>
+          <li class="chip"><b>Bananes</b> <u>≈</u> <i>3–5 j</i></li>
+          <li class="chip"><b>Melons entiers</b> <u>≈</u> <i>2–3 j</i></li>
+        </ul>
+      </div>
+
+      <div class="shelf">
+        <p class="shelf-label">Mûrissent dehors → puis frigo</p>
+        <ul class="chips">
+          <li class="chip"><b>Avocat</b> <u>≈</u> <i>2–4 j</i></li>
+          <li class="chip"><b>Abricots</b> <u>≈</u> <i>2–3 j</i></li>
+          <li class="chip"><b>Pêches plates</b> <u>≈</u> <i>2–3 j</i></li>
+          <li class="chip"><b>Nectarines</b> <u>≈</u> <i>2–3 j</i></li>
+        </ul>
+      </div>
+
+      <p class="note">Prêt = la chair cède sous le pouce. À ce moment-là, le frigo freine tout et te donne 2–3 jours de plus. Tomates : pédoncule vers le haut. Avocat : mûr quand le pédoncule s'enlève facilement.</p>
+    </section>
+  </div>
+
+  <section class="gasband">
+    <p class="eyebrow">Le gaz invisible <span></span> Éthylène</p>
+    <h2 class="gas-title">Qui gaze qui</h2>
+    <p class="gas-lede">Les mûrs émettent, les fermes subissent : jaunissement, ramollissement, quelques jours de perdus. Les étiquettes marquées <u style="text-decoration:none;font-family:var(--mono);color:var(--gas);font-weight:700">≈</u> plus haut sont les émetteurs.</p>
+
+    <div class="flow">
+      <div class="emit">
+        <p class="side-label">Émetteurs</p>
+        <ul class="chips">
+          <li class="chip"><b>Pomme</b></li>
+          <li class="chip"><b>Melon</b></li>
+          <li class="chip"><b>Bananes</b></li>
+          <li class="chip"><b>Avocat</b></li>
+          <li class="chip"><b>Fruits à noyau</b></li>
+          <li class="chip"><b>Tomates</b></li>
+        </ul>
+      </div>
+
+      <div class="waves" aria-hidden="true">
+        <span class="arc"></span><span class="arc"></span><span class="arc"></span>
+        <em>→</em>
+      </div>
+
+      <div class="recv">
+        <p class="side-label">Sensibles</p>
+        <ul class="chips">
+          <li class="chip"><b>Concombre</b></li>
+          <li class="chip"><b>Courgettes</b></li>
+          <li class="chip"><b>Carottes</b></li>
+          <li class="chip"><b>Aubergine</b></li>
+          <li class="chip"><b>Poivrons</b></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="verdict">Des îlots séparés sur le plan : melon seul · bananes seules · fruits à noyau sur une assiette · tomates à l'écart. Et dans le frigo, la pomme loin des carottes et des courgettes — sinon carottes amères et courgettes molles.</p>
+
+    <p class="note" style="color:var(--gas);opacity:1;margin-top:16px">Dans l'autre sens, l'éthylène se retourne à ton avantage : un avocat trop ferme dans un sac papier avec une banane ou une pomme est prêt en 24 à 48 h.</p>
+  </section>
+
+  <section class="rules">
+    <h2>Quatre réflexes</h2>
+    <ol>
+      <li>On ne lave rien avant de ranger. Les fruits rouges surtout : lavés, ils moisissent en une nuit.</li>
+      <li>Carottes en botte : couper les fanes en rentrant, elles pompent l'eau de la racine.</li>
+      <li>Melon entamé : boîte hermétique, sinon le beurre et le fromage prennent le goût.</li>
+      <li>Sac papier plutôt que plastique fermé pour les courgettes — la condensation les fait pourrir.</li>
+      <li>Melon et bananes ne se mettent pas côte à côte : ils s'accélèrent mutuellement.</li>
+    </ol>
+  </section>
+
+  <footer>Plan de rangement · fruits et légumes d'été</footer>
+</div>
+</body>
+</html>
